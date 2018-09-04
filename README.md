@@ -1,3 +1,20 @@
+# About this fork
+
+I recently switched to Linux as my daily workstation. The only thing I truly, persistently missed was the ability to respond to SMS and iMessage conversations from the comfort of my workstation.
+
+After a lot of research and mucking around, I decided I would write a Rails app that would run on my old Mac and give me a simple web interface into the Messages app. I was going to do it from scratch until I found `coisnepe`'s project, and that really got the ball rolling.
+
+Some notes about setup and some TODOs:
+
+* Both individual and group chats are working!
+* This app attempts to match phone numbers to names using a CSV export from your address book. It expects to find it at `db/contacts.csv`. I generated mine using an app from the App Store called AB2CSV. This doesn't work great and didn't capture all my contacts. I will be looking for better alternatives to finding the correct names. If you just want to see it in action without contact names, some small edits to `app/services/contacts.rb` should do the trick.
+* Attachments are not supported yet. This is something I plan to add, including drag-and-drop as well as clipboard support.
+* The app doesn't yet generate browser notifications or update in real-time. This is also something I intend to add.
+* The UI is extremely minimal. I'll be working on this some, but ultimately I'd like to theme it like the rest of my desktop environment (Solarized, basically). Theming support as an actual feature would be cool, but probably outside my own scope here. Feel free to fork it and make it your own.
+* I'm using this in macOS High Sierra (10.13.6, specifically), and I plan to stick with that. From my research, it looks like Apple frequently changes the iMessage database format and interfaces, seemingly (at least sometimes) deliberately to foil attempts at doing exactly what I'm trying to do here. So I suppose my old Mac will run High Sierra either forever or until Apple opens up the iMessage platform, whichever comes first.
+
+# Original README:
+
 ##imessage_on_rails
 
 A super simple Rails app to play with OSX's Messages database
