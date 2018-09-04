@@ -15,6 +15,23 @@ Some notes about setup and some TODOs:
 * It doesn't currently support starting new conversations. This isn't something I do that often at all outside using my phone, but if I find myself wanting it enough maybe I'll add it.
 * I'm using this in macOS High Sierra (10.13.6, specifically), and I plan to stick with that. From my research, it looks like Apple frequently changes the iMessage database format and interfaces, seemingly (at least sometimes) deliberately to foil attempts at doing exactly what I'm trying to do here. So I suppose my old Mac will run High Sierra either forever or until Apple opens up the iMessage platform, whichever comes first.
 
+A proper TODO list (contributions welcome!):
+
+- [ ] Better support for Address Book name replacement
+- [ ] Attachments
+  - [ ] Render images in messages
+  - [ ] Upload form
+  - [ ] Drag-and-drop
+  - [ ] Clipboard
+- [ ] Attachments
+- [ ] Real-time chat updates
+- [ ] Submit messages with Ajax
+- [ ] Real-time message updates
+- [ ] Browser notifications
+- [ ] Proper UI (properly-sorted conversations in sidebar)
+- [ ] Add theme as a configuration option
+- [ ] Implement a Solarized-based theme
+
 # Original README:
 
 ##imessage_on_rails
