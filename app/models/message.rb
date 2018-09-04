@@ -59,9 +59,19 @@ class Message < ApplicationRecord
   self.table_name = 'message'
   self.inheritance_column = 'message_type' # "type" is a reserved column name
 
+  belongs_to :handle
+
   has_many :chat_message
   has_many :chat, through: :chat_message
 
   has_many :message_attachment
   has_many :attachment, through: :message_attachment
+
+  def identifier
+    if is_from_me?
+      "Me"
+    else
+      handle_identifier
+    end
+  end
 end

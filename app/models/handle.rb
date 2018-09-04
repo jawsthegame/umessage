@@ -14,4 +14,8 @@ class Handle < ApplicationRecord
 
   has_many :chat_handle
   has_many :chat, through: :chat_handle
+
+  def self.select_identifier
+    select("id AS identifier")
+  end
 end

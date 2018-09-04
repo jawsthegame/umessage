@@ -39,4 +39,20 @@ class Chat < ApplicationRecord
     joined_results = results.join(' OR ')
     where(joined_results).pluck(:ROWID)
   end
+
+  def messages_with_handles
+    message.select("text, is_from_me, handle.id AS handle_identifier").joins(:handle)
+  end
+
+  def identifiers
+    if chat_identifier && chat_identifier[0..3] == "chat"
+      handle_ids = message.select("DISTINCT(handle_id) AS handle_id").map(&:handle_id)
+
+      Handle.where("ROWID IN (?)", handle_ids)
+        .select("id AS identifier")
+        .map(&:identifier)
+    else
+      chat_identifier
+    end
+  end
 end
