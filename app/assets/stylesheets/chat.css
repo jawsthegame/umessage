@@ -1,0 +1,21 @@
+#conversations td {
+  padding: 0;
+}
+
+#chat {
+  height: 500px;
+  overflow: auto;
+}
+
+#chat td {
+  padding: 0 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+#chat td.sender {
+  white-space: nowrap;
+}
+
+#chat td p {
+  margin: 12px 0;
+}

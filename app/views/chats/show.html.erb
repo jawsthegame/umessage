@@ -2,25 +2,19 @@
 
 <h1><%= name_from_number(@chat.identifiers) %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Sender</th>
-      <th>Text</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @chat.messages_with_handles.each do |message| %>
-      <tr>
-        <td><%= name_from_number(message.identifier) %></td>
-        <td><%= simple_format message.text&.strip %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div id="chat">
+  <table>
+    <tbody>
+      <% @chat.messages_with_handles.each do |message| %>
+        <tr>
+          <td class="sender"><%= name_from_number(message.identifier) %></td>
+          <td><%= simple_format message.text&.strip %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 
-<%= link_to 'Edit', edit_chat_path(@chat) %> |
 <%= link_to 'Back', chats_path %>
