@@ -41,7 +41,8 @@ class Chat < ApplicationRecord
   end
 
   def messages_with_handles
-    message.select("text, is_from_me, handle.id AS handle_identifier").joins(:handle)
+    message.select("message.rowid, text, is_from_me, handle.id AS handle_identifier")
+      .joins("LEFT JOIN handle on handle.ROWID = message.handle_id")
   end
 
   def identifiers
