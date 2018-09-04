@@ -15,6 +15,16 @@
   </table>
 </div>
 
+<%= form_for([@chat, Message.new]) do |f| %>
+  <%= f.hidden_field :chat_id, value: @chat[:ROWID] %>
+  <%= f.hidden_field :conversation_id, value: @chat.guid %>
+  <%= f.text_area :text %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
 <br>
 
 <%= link_to 'Back', chats_path %>

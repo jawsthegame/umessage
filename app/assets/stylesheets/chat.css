@@ -8,7 +8,7 @@
 }
 
 #chat td {
-  padding: 0 12px;
+  padding: 0 6px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -18,4 +18,12 @@
 
 #chat td p {
   margin: 12px 0;
+}
+
+textarea#message_text {
+  width: 100%;
+}
+
+.actions {
+  text-align: right;
 }
