@@ -23,6 +23,7 @@ This app relies on "Shane Celis's `contacts` command line utility"[http://gnufoo
 Contributions welcome!
 
 - [x] Better support for Address Book name replacement
+  - [ ] Improve this further; right now not all "phone" fields are recognized
 - [ ] Attachments
   - [ ] Render images in messages
   - [ ] Upload form
