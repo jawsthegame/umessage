@@ -28,12 +28,11 @@ Contributions welcome!
   - [ ] Upload form
   - [ ] Drag-and-drop
   - [ ] Clipboard
-- [ ] Attachments
-- [ ] Real-time chat updates
 - [ ] Submit messages with Ajax
 - [ ] Real-time message updates
 - [ ] Browser notifications
 - [ ] Proper UI (properly-sorted conversations in sidebar)
+- [ ] Copious hotkeys
 - [ ] Add theme as a configuration option
 - [ ] Implement a Solarized-based theme
 
