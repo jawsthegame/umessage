@@ -16,7 +16,7 @@ Some notes about setup and some TODOs:
 
 ## Dependencies
 
-This app relies on "Shane Celis's `contacts` command line utility"[http://gnufoo.org/contacts/] to replace phone numbers with real names. To install it, run `brew install contacts`.
+This app relies on [Shane Celis's `contacts` command line utility](http://gnufoo.org/contacts/) to replace phone numbers with real names. To install it, run `brew install contacts`.
 
 ## TODO
 
