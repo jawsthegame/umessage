@@ -61,11 +61,27 @@ class Message < ApplicationRecord
 
   belongs_to :handle
 
-  has_many :chat_message
-  has_many :chat, through: :chat_message
+  has_many :chat_messages
+  has_many :chats, through: :chat_messages
 
-  has_many :message_attachment
-  has_many :attachment, through: :message_attachment
+  has_many :message_attachments
+  has_many :attachments, through: :message_attachments
+
+  class << self
+    def for_chat
+      select(
+        <<~SQL
+          message.ROWID,
+          text,
+          is_from_me,
+          handle.id AS handle_identifier,
+          cache_has_attachments
+        SQL
+      )
+        .includes(:attachments, :chats)
+        .joins("LEFT JOIN handle on handle.ROWID = message.handle_id")
+    end
+  end
 
   def identifier
     if is_from_me?

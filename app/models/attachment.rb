@@ -19,6 +19,6 @@
 class Attachment < ApplicationRecord
   self.table_name = 'attachment'
 
-  has_many :message_attachment
-  has_many :message, through: :message_attachment
+  has_many :message_attachments
+  has_many :messages, through: :message_attachments
 end

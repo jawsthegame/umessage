@@ -1,0 +1,12 @@
+<tr>
+  <td class="sender"><%= name_from_number(message.identifier) %></td>
+  <td>
+    <% if message.cache_has_attachments? %>
+      <% message.attachments.each do |a| %>
+        <%= attachment_image_tag a, style: "max-width: 90%" %>
+      <% end %>
+    <% end %>
+    <%= simple_format message.text&.strip %>
+    <%= message.chats.first.id %>
+  </td>
+</tr>

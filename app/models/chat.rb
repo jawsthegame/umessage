@@ -23,11 +23,11 @@
 class Chat < ApplicationRecord
   self.table_name = 'chat'
 
-  has_many :chat_message
-  has_many :message, through: :chat_message
+  has_many :chat_messages
+  has_many :messages, through: :chat_messages
 
-  has_many :chat_handle
-  has_many :handle, through: :chat_handle
+  has_many :chat_handles
+  has_many :handles, through: :chat_handles
 
   def sanitized_guid
     guid.sub(/\w+;.;/, '')
@@ -40,15 +40,9 @@ class Chat < ApplicationRecord
     where(joined_results).pluck(:ROWID)
   end
 
-  def messages_with_handles
-    message.select("message.rowid, text, is_from_me, handle.id AS handle_identifier, cache_has_attachments")
-      .includes(:attachment)
-      .joins("LEFT JOIN handle on handle.ROWID = message.handle_id")
-  end
-
   def identifiers
     if chat_identifier && chat_identifier[0..3] == "chat"
-      handle_ids = message.select("DISTINCT(handle_id) AS handle_id").map(&:handle_id)
+      handle_ids = messages.select("DISTINCT(handle_id) AS handle_id").map(&:handle_id)
 
       Handle.where("ROWID IN (?)", handle_ids)
         .select("id AS identifier")

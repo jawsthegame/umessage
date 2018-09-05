@@ -2,27 +2,15 @@
 
 <h1><%= name_from_number(@chat.identifiers) %></h1>
 
-<div id="chat">
-  <table>
+<div id="chat" data-chat="<%= @chat.id %>">
+  <table class="chat-view">
     <tbody>
-      <% @chat.messages_with_handles.each do |message| %>
-        <tr>
-          <td class="sender"><%= name_from_number(message.identifier) %></td>
-          <td>
-            <% if message.cache_has_attachments? %>
-              <% message.attachment.each do |a| %>
-                <%= attachment_image_tag a, style: "max-width: 90%" %>
-              <% end %>
-            <% end %>
-            <%= simple_format message.text&.strip %>
-          </td>
-        </tr>
-      <% end %>
+      <%= render @chat.messages.for_chat %>
     </tbody>
   </table>
 </div>
 
-<%= form_with(model:  [@chat, Message.new], local: false) do |f| %>
+<%= form_with(model:  [@chat, Message.new], local: false, id: "message-form") do |f| %>
   <%= f.hidden_field :chat_id, value: @chat[:ROWID] %>
   <%= f.hidden_field :conversation_id, value: @chat.guid %>
   <%= f.text_area :text %>

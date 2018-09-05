@@ -12,8 +12,8 @@
 class Handle < ApplicationRecord
   self.table_name = 'handle'
 
-  has_many :chat_handle
-  has_many :chat, through: :chat_handle
+  has_many :chat_handles
+  has_many :chats, through: :chat_handles
 
   def self.select_identifier
     select("id AS identifier")

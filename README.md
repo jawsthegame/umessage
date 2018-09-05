@@ -18,6 +18,8 @@ Some notes about setup and some TODOs:
 
 This app relies on [Shane Celis's `contacts` command line utility](http://gnufoo.org/contacts/) to replace phone numbers with real names. To install it, run `brew install contacts`.
 
+You will also need a Redis server running for pub/sub for real-time chat updates.
+
 ## Installation
 
 Install like a normal Rails app, but don't create a database! Then run `rake messages:setup`, which will create a symlink in your public directory to your iMessage attachments directory so the GUI can display messages with images.
@@ -33,8 +35,8 @@ Contributions welcome!
   - [ ] Upload form
   - [ ] Drag-and-drop
   - [ ] Clipboard
-- [ ] Submit messages with Ajax
-- [ ] Real-time message updates
+- [x] Submit messages with Ajax
+- [x] Real-time message updates
 - [ ] Browser notifications
 - [ ] Proper UI (properly-sorted conversations in sidebar)
 - [ ] Copious hotkeys
