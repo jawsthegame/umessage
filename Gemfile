@@ -7,6 +7,7 @@ gem "puma"
 gem "sqlite3"
 gem "redis"
 gem "jquery-rails"
+gem "bootstrap"
 
 group :development, :test do
   gem "byebug"
