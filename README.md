@@ -18,14 +18,18 @@ Some notes about setup and some TODOs:
 
 This app relies on [Shane Celis's `contacts` command line utility](http://gnufoo.org/contacts/) to replace phone numbers with real names. To install it, run `brew install contacts`.
 
+## Installation
+
+Install like a normal Rails app, but don't create a database! Then run `rake messages:setup`, which will create a symlink in your public directory to your iMessage attachments directory so the GUI can display messages with images.
+
 ## TODO
 
 Contributions welcome!
 
-- [x] Better support for Address Book name replacement
+- [-] Better support for Address Book name replacement
   - [ ] Improve this further; right now not all "phone" fields are recognized
-- [ ] Attachments
-  - [ ] Render images in messages
+- [-] Attachments
+  - [x] Render images in messages
   - [ ] Upload form
   - [ ] Drag-and-drop
   - [ ] Clipboard

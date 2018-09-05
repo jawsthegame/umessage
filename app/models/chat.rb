@@ -41,7 +41,8 @@ class Chat < ApplicationRecord
   end
 
   def messages_with_handles
-    message.select("message.rowid, text, is_from_me, handle.id AS handle_identifier")
+    message.select("message.rowid, text, is_from_me, handle.id AS handle_identifier, cache_has_attachments")
+      .includes(:attachment)
       .joins("LEFT JOIN handle on handle.ROWID = message.handle_id")
   end
 
