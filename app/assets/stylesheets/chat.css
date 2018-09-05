@@ -20,7 +20,7 @@
   margin: 12px 0;
 }
 
-textarea#message_text {
+textarea[name="message[text]"] {
   width: 100%;
 }
 

@@ -12,4 +12,10 @@ module ChatsHelper
       identifier
     end
   end
+
+  def attachment_image_tag(attachment, **opts)
+    path = attachment.filename.gsub(/.+Attachments\//, "")
+    path = "/images/message_attachments/#{path}"
+    image_tag(asset_path(path, skip_pipeline: true), **opts)
+  end
 end

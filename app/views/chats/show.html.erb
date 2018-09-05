@@ -11,7 +11,7 @@
           <td>
             <% if message.cache_has_attachments? %>
               <% message.attachment.each do |a| %>
-                <%= image_tag "message_attachments/#{message.attachment.first.filename.gsub(/.+Attachments\//, "")}", style: "max-width: 90%" %>
+                <%= attachment_image_tag a, style: "max-width: 90%" %>
               <% end %>
             <% end %>
             <%= simple_format message.text&.strip %>
@@ -22,7 +22,7 @@
   </table>
 </div>
 
-<%= form_for([@chat, Message.new]) do |f| %>
+<%= form_with(model:  [@chat, Message.new], local: false) do |f| %>
   <%= f.hidden_field :chat_id, value: @chat[:ROWID] %>
   <%= f.hidden_field :conversation_id, value: @chat.guid %>
   <%= f.text_area :text %>
