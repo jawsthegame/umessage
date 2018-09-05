@@ -26,9 +26,9 @@ Install like a normal Rails app, but don't create a database! Then run `rake mes
 
 Contributions welcome!
 
-- [-] Better support for Address Book name replacement
-  - [ ] Improve this further; right now not all "phone" fields are recognized
-- [-] Attachments
+- [x] Better support for Address Book name replacement
+- [ ] Improve name replacement further; right now not all "phone" fields are recognized
+- [ ] Attachments
   - [x] Render images in messages
   - [ ] Upload form
   - [ ] Drag-and-drop
