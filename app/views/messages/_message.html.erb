@@ -11,7 +11,7 @@
       <%= auto_link(simple_format(message.text&.strip), html: { target: "_blank" }) %>
     <% end %>
   </td>
-  <td class"sent-at">
+  <td class="sent-at">
     <small><%= datetime(DateTime.parse(message.sent_at)) %></small>
   </td>
 </tr>

@@ -13,6 +13,7 @@ module ImessageOnRails
     # -- all .rb files in that directory are automatically loaded.
 
     config.time_zone = "Central Time (US & Canada)"
+    config.theme = "solarized-dark"
 
     config.active_record.sqlite3.represent_boolean_as_integer = true
   end
