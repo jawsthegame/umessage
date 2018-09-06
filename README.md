@@ -58,7 +58,7 @@ Contributions are welcome!
   - [x] Render images in messages
   - [x] Upload form
   - [x] Drag-and-drop
-  - [ ] Clipboard
+  - [x] Clipboard
   - [ ] Link to attachments for full view in new tab
 - [ ] Paginate conversations
 - [ ] Authentication so it's safer to expose for remote access

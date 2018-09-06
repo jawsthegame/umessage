@@ -22,6 +22,14 @@ $(function() {
       form.find("input[type='file']")[0].files = e.originalEvent.dataTransfer.files;
     });
 
+  form.find("textarea").bind("paste", function(e) {
+    if (e.originalEvent.clipboardData.files.length > 0) {
+      e.preventDefault();
+      form.addClass("has-file");
+      form.find("input[type='file']")[0].files = e.originalEvent.clipboardData.files;
+    }
+  });
+
   App.chats = App.cable.subscriptions.create("ChatsChannel", {
     received: function(data) {
       var chat = $(`#chat [data-chat=${data.chat_id}]`)
