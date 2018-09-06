@@ -59,7 +59,9 @@ function sortConversations() {
   }).appendTo("#conversations .list-group");
 
   chat_id = $("#chat [data-chat]").data("chat");
-  $(`#conversations [data-chat=${chat_id}]`).addClass("active");
+  conversation = $(`#conversations [data-chat=${chat_id}]`);
+  conversation.addClass("active");
+  conversation.find(".badge").remove();
 }
 
 $("body").on("resize", adjustChatHeight);
