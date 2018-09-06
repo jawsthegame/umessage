@@ -29,26 +29,66 @@ class Chat < ApplicationRecord
   has_many :chat_handles
   has_many :handles, through: :chat_handles
 
+  class << self
+    def for_conversations
+      select(
+        <<~SQL
+          chat.ROWID,
+          (
+            SELECT datetime(
+              message.date / 1000000000 + strftime("%s", "2001-01-01"),
+              "unixepoch", "localtime"
+            ) AS date_utc
+            FROM message
+            JOIN chat_message_join ON chat_message_join.message_id = message.ROWID
+            WHERE chat_message_join.chat_id = chat.ROWID
+            ORDER BY date DESC
+            LIMIT 1
+          ) AS last_msg_at,
+          (
+            SELECT text
+            FROM message
+            JOIN chat_message_join ON chat_message_join.message_id = message.ROWID
+            WHERE chat_message_join.chat_id = chat.ROWID
+            ORDER BY date DESC
+            LIMIT 1
+          ) AS last_text
+        SQL
+      )
+        .includes(:handles)
+    end
+
+    def fuzzy_search(params)
+      results = []
+      params.each { |param| results << "guid LIKE '%#{param}%'" }
+      joined_results = results.join(' OR ')
+      where(joined_results).pluck(:ROWID)
+    end
+  end
+
   def sanitized_guid
     guid.sub(/\w+;.;/, '')
   end
 
-  def self.fuzzy_search(params)
-    results = []
-    params.each { |param| results << "guid LIKE '%#{param}%'" }
-    joined_results = results.join(' OR ')
-    where(joined_results).pluck(:ROWID)
+  def identifiers
+    handles.map(&:chat_identifier)
   end
 
-  def identifiers
-    if chat_identifier && chat_identifier[0..3] == "chat"
-      handle_ids = messages.select("DISTINCT(handle_id) AS handle_id").map(&:handle_id)
+  def unread_count
+    @unread_count ||= redis.get("chat:#{id}:unread")&.to_i || 0
+  end
 
-      Handle.where("ROWID IN (?)", handle_ids)
-        .select("id AS identifier")
-        .map(&:identifier)
-    else
-      chat_identifier
-    end
+  def unread_count=(count)
+    redis.set("chat:#{id}:unread", count)
+    @unread_count = count
+  end
+
+  def increment_unread_count!(by = 1)
+    @unread_count = redis.incrby("chat:#{id}:unread", by).to_i
+  end
+
+  def reset_unread_count!
+    redis.set("chat:#{id}:unread", 0)
+    @unread_count = 0
   end
 end

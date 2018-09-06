@@ -75,7 +75,11 @@ class Message < ApplicationRecord
           text,
           is_from_me,
           handle.id AS handle_identifier,
-          cache_has_attachments
+          cache_has_attachments,
+          datetime(
+            message.date / 1000000000 + strftime("%s", "2001-01-01"),
+            "unixepoch", "localtime"
+          ) AS sent_at
         SQL
       )
         .includes(:attachments, :chats)

@@ -1,6 +1,9 @@
 $(function() {
   adjustChatHeight();
   scrollChatToBottom();
+  sortConversations();
+
+  App.following = [];
 
   App.chats = App.cable.subscriptions.create("ChatsChannel", {
     connected: function() {
@@ -10,13 +13,19 @@ $(function() {
     },
 
     follow: function(id) {
-      this.perform("follow", { id: id });
+      if (App.following.indexOf(id) == -1) {
+        this.perform("follow", { id: id });
+        App.following.push(id);
+      }
     },
 
     received: function(data) {
-      var chat = $(`[data-chat=${data.chat_id}]`);
-      chat.find("tbody").append(data.chat_view);
+      $(`#chat [data-chat=${data.chat_id}]`).append(data.chat_view);
       scrollChatToBottom();
+
+      $(`#conversations [data-chat=${data.chat_id}]`).remove();
+      $("#conversations .list-group").append(data.conversation_view);
+      sortConversations();
     },
   });
 
@@ -44,6 +53,12 @@ function adjustChatHeight() {
 function scrollChatToBottom() {
   var chat = $("#chat .scroll");
   chat.scrollTop(chat.prop("scrollHeight"));
+}
+
+function sortConversations() {
+  $("#conversations .list-group .list-group-item").sort(function(a, b) {
+    return parseInt($(a).data("date")) > parseInt($(b).data("date")) ? -1 : 1;
+  }).appendTo("#conversations .list-group");
 }
 
 $("body").on("resize", adjustChatHeight);

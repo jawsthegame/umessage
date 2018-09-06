@@ -42,9 +42,16 @@
   }
 
   .list-group-item {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    small {
+      white-space: nowrap;
+      margin-left: 1rem;
+    }
+
+    h6, p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
 
@@ -62,5 +69,38 @@
     .form-row {
       width: 100%;
     }
+  }
+
+  table {
+    width: 100%;
+  }
+
+  tr {
+    border-bottom: 1px solid #eee;
+  }
+
+  td.sender {
+    margin: 0;
+    padding-left: 1rem;
+    white-space: nowrap;
+  }
+
+  td.message {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  td.sent-at {
+    color: green;
+    min-width: 10rem;
+    margin: 0;
+    padding-right: 1rem;
+    white-space: nowrap;
+    text-align: right;
   }
 }

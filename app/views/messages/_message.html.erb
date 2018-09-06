@@ -1,11 +1,17 @@
-<tr>
+<tr class="<%= message.identifier == 'Me' ? 'from-me' : 'from-other' %>">
   <td class="sender"><%= name_from_number(message.identifier) %></td>
-  <td>
+  <td class="message">
     <% if message.cache_has_attachments? %>
       <% message.attachments.each do |a| %>
         <%= attachment_image_tag a, style: "max-width: 90%; max-height: 200px" %>
       <% end %>
     <% end %>
-    <%= simple_format message.text&.strip %>
+
+    <% if message.text&.strip.present? %>
+      <%= auto_link(simple_format(message.text&.strip), html: { target: "_blank" }) %>
+    <% end %>
+  </td>
+  <td class"sent-at">
+    <small><%= datetime(DateTime.parse(message.sent_at)) %></small>
   </td>
 </tr>

@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+  time:
+    formats:
+      conversations_today: "%l:%M%P"
+      conversations_longer: "%b %e"

@@ -34,17 +34,33 @@ namespace :messages do
                   ApplicationController.render(message)
                 end
 
+              if messages.any?(&:is_from_me?)
+                chat.reset_unread_count!
+              else
+                chat.increment_unread_count!(messages.reject(&:is_from_me?).size)
+              end
+
+              chat.define_singleton_method(:last_msg_at) { messages.last.sent_at }
+              chat.define_singleton_method(:last_text) { messages.last.text }
+
+              conversation_view = ApplicationController.render(
+                partial: "chats/chat",
+                locals: { chat: chat },
+              )
+
               ChatsChannel.broadcast_to(
                 chat,
                 chat_id: chat.id,
                 messages: messages,
                 chat_view: chat_view,
+                conversation_view: conversation_view,
               )
             end
           end
         rescue Exception => e
           logger.warn e.inspect
           logger.warn e.message
+          logger.warn e.backtrace
         end
 
         sleep 1

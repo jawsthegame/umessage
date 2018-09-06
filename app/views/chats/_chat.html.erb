@@ -1,0 +1,15 @@
+<% if chat.last_msg_at.present? %>
+  <% last_msg_at = DateTime.parse(chat.last_msg_at) %>
+  <%= link_to(chat, class: "list-group-item list-group-item-action flex-column align-items-start", data: { chat: chat.id, date: last_msg_at.to_i } ) do %>
+    <div class="d-flex w-100 justify-content-between">
+      <h6 class="mb-1 mt-1"><%= name_from_number(chat.identifiers) %></h6>
+      <% if chat.unread_count > 0 %>
+        <small class="badge badge-primary badge-pill mt-1"><%= chat.unread_count %></small>
+      <% end %>
+    </div>
+    <div class="d-flex w-100 justify-content-between">
+      <p class="mb-0"><%= chat.last_text&.strip.present? ? chat.last_text : "[Attachment]" %></p>
+      <small class="mt-1"><%= datetime(last_msg_at) %></small>
+    </div>
+  <% end %>
+<% end %>

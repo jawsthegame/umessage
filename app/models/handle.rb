@@ -12,6 +12,8 @@
 class Handle < ApplicationRecord
   self.table_name = 'handle'
 
+  default_scope { select("*, id AS chat_identifier") }
+
   has_many :chat_handles
   has_many :chats, through: :chat_handles
 

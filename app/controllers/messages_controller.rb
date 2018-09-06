@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
       params[:message][:text],
     )
 
-    redirect_to chat_path(params[:message][:chat_id])
+    head :ok
   end
 
   private

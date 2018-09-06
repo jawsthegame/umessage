@@ -1,12 +1,8 @@
 <div class="row no-gutters">
   <div id="conversations" class="col-3">
     <div class="scroll">
-      <div class="list-group">
-        <% Chat.all.find_each do |chat| %>
-          <%= link_to(chat, class: "list-group-item") do %>
-            <%= name_from_number(chat.identifiers) %>
-          <% end %>
-        <% end %>
+      <div class="list-group list-group-flush">
+        <%= render Chat.for_conversations %>
       </div>
     </div>
   </div>
@@ -15,13 +11,11 @@
     <h1><%= name_from_number(@chat.identifiers) %></h1>
 
     <div class="scroll">
-      <div data-chat="<%= @chat.id %>">
-        <table class="chat-view">
-          <tbody>
-            <%= render @chat.messages.for_chat %>
-          </tbody>
-        </table>
-      </div>
+      <table data-chat="<%= @chat.id %>" class="chat-view">
+        <tbody>
+          <%= render @chat.messages.for_chat %>
+        </tbody>
+      </table>
     </div>
 
     <%= bootstrap_form_with(model: [@chat, Message.new], local: false, id: "message-form", class: "form-inline") do |f| %>
