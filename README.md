@@ -54,5 +54,17 @@ Contributions are welcome!
   - [ ] Drag-and-drop
   - [ ] Clipboard
 - [ ] Browser notifications
-- [ ] Copious hotkeys
+- [ ] Paginate conversations
 - [ ] Authentication so it's safer to expose for remote access
+
+## Future TODOs
+
+This are probably a long ways out, if I get around to them at all. But again, contributions are very welcome:
+
+- [ ] Ability to start new conversations (one-to-one and group; from my research this is not at all a straightforward thing to do)
+- [ ] Copious hotkeys (I use Vimium so this is not as important to me)
+- [ ] Client-side search filter for conversations
+- [ ] Server-side search tool for messages
+- [ ] A recipe for Franz
+- [ ] JSON API for further integrations
+- [ ] Bridging to other chat protocols, for accessibility from alternative front-ends
