@@ -82,7 +82,7 @@ class Message < ApplicationRecord
           ) AS sent_at
         SQL
       )
-        .includes(:attachments, :chats)
+        .includes(:attachments, chats: :handles)
         .joins("LEFT JOIN handle on handle.ROWID = message.handle_id")
     end
   end
