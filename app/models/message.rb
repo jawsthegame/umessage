@@ -97,6 +97,18 @@ class Message < ApplicationRecord
     end
   end
 
+  def text
+    if cache_has_attachments? || self[:text] == "￼"
+      "[Attachment]"
+    else
+      super&.strip
+    end
+  end
+
+  def text_for_chat
+    text == "[Attachment]" ? "" : text
+  end
+
   def as_json(opts)
     super(opts.merge(methods: :identifier))
   end

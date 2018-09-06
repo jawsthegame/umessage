@@ -7,8 +7,8 @@
       <% end %>
     <% end %>
 
-    <% if message.text&.strip.present? && message.text != "￼" %>
-      <%= auto_link(simple_format(message.text&.strip), html: { target: "_blank" }) %>
+    <% if message.text_for_chat.present? %>
+      <%= auto_link(simple_format(message.text_for_chat), html: { target: "_blank" }) %>
     <% else %>
       <p></p>
     <% end %>
