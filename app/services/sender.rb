@@ -3,14 +3,36 @@ class Sender
     _, service, _group, phone =
       */\A(SMS|iMessage);(-|\+);\+?((chat)?\d+)\Z/.match(chat_id)
 
+    set_attachment, send_attachment = nil, nil
+
+    if attachment_path.present?
+      ext = /\.(.+)\Z/.match(attachment_path)
+      new_path = "#{Rails.root}/tmp/#{Time.now.to_i}.#{ext}"
+
+      `cp #{attachment_path} #{new_path.inspect}`
+
+      set_attachment = <<~OSA
+        tell application "System Events"
+          set the_attachment to POSIX file #{new_path.inspect}
+        end tell
+      OSA
+
+      send_attachment = <<~OSA
+        send the_attachment to conversation
+      OSA
+    end
+
     if /\Achat\d+\Z/.match?(phone)
       # Group chats
       puts "Sending to group #{phone}..."
       osascript <<~OSA
+        #{set_attachment ? set_attachment : ""}
+
         tell application "Messages"
           set chat_id to #{chat_id.inspect}
           set message to #{message.inspect}
           set conversation to a reference to text chat id chat_id
+          #{send_attachment ? send_attachment : ""}
           send message to conversation
         end tell
       OSA
@@ -19,11 +41,14 @@ class Sender
       # For individual iMessage conversations
       puts "Sending iMessage to #{phone}..."
       osascript <<~OSA
+        #{set_attachment ? set_attachment : ""}
+
         tell application "Messages"
           set message to #{message.inspect}
           set msg_service to 1st service whose service type = iMessage
-          set my_buddy to buddy #{phone.inspect} of msg_service
-          send message to my_buddy
+          set conversation to buddy #{phone.inspect} of msg_service
+          #{send_attachment ? send_attachment : ""}
+          send message to conversation
         end tell
       OSA
 
@@ -31,10 +56,13 @@ class Sender
       # Slightly different approach needed for SMS
       puts "Sending SMS to #{phone}..."
       osascript <<~OSA
+        #{set_attachment ? set_attachment : ""}
+
         tell application "Messages"
           set message to #{message.inspect}
-          set my_buddy to buddy #{phone.inspect} of service "SMS"
-          send message to my_buddy
+          set conversation to buddy #{phone.inspect} of service "SMS"
+          #{send_attachment ? send_attachment : ""}
+          send message to conversation
         end tell
       OSA
 

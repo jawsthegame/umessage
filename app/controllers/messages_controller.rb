@@ -3,7 +3,10 @@ class MessagesController < ApplicationController
     Sender.send(
       params[:message][:conversation_id],
       params[:message][:text],
+      params[:message][:attachment].try(:path),
     )
+
+    params[:message][:attachment].try(:close)
 
     head :ok
   end

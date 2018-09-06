@@ -8,7 +8,13 @@
       <% end %>
     </div>
     <div class="d-flex w-100 justify-content-between">
-      <p class="mb-0"><%= chat.last_text&.strip.present? ? chat.last_text : "[Attachment]" %></p>
+      <p class="mb-0">
+        <% if chat.last_text&.strip.present? && chat.last_text != "￼" %>
+          <%= chat.last_text&.strip.present? ? chat.last_text : "[Attachment]" %>
+        <% elsif chat.last_text == "￼"%>
+          [Attachment]
+        <% end %>
+      </p>
       <small class="mt-1"><%= datetime(last_msg_at) %></small>
     </div>
   <% end %>

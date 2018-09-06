@@ -27,7 +27,8 @@
         </div>
 
         <div class="col">
-          <%= f.submit "Send", class: "btn btn-primary w-100" %>
+          <%= f.submit "Send", class: "btn btn-primary w-100 btn-sm mb-1" %>
+          <%= f.file_field :attachment, placeholder: "Attach", hide_label: true %>
         </div>
       </div>
     <% end %>

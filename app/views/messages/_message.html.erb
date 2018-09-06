@@ -7,8 +7,10 @@
       <% end %>
     <% end %>
 
-    <% if message.text&.strip.present? %>
+    <% if message.text&.strip.present? && message.text != "￼" %>
       <%= auto_link(simple_format(message.text&.strip), html: { target: "_blank" }) %>
+    <% else %>
+      <p></p>
     <% end %>
   </td>
   <td class="sent-at">
