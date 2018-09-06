@@ -16,7 +16,7 @@ Some notes about setup and some TODOs:
 
 ## Dependencies
 
-This app relies on [Shane Celis's `contacts` command line utility](http://gnufoo.org/contacts/) to replace phone numbers with real names. To install it, run `brew install contacts`.
+This app relies on the [Contactor](https://github.com/kettle/Contactor) command line utility to replace phone numbers with real names. To install it, run `brew tap kettle/homebrew-kettle && brew install Contactor`.
 
 You will also need a Redis server running for pub/sub for real-time chat updates.
 
@@ -37,7 +37,7 @@ There is basic theme support for those of us who like to rice our DEs, WMs, pets
 Contributions welcome!
 
 - [x] Better support for Address Book name replacement
-- [ ] Improve name replacement further; right now not all "phone" fields are recognized
+- [x] Improve name replacement further; right now not all "phone" fields are recognized
 - [ ] Attachments
   - [x] Render images in messages
   - [ ] Upload form

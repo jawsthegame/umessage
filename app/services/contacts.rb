@@ -1,16 +1,30 @@
 require "csv"
 
 class Contacts
-  CONTACTS_CMD = "contacts -HSlf '%n:%hp:%wp:%mp:%Mp:%pp:%fp:%op'"
+  CONTACTS_CMD = "Contactor list"
   NON_DIGITS = /[^\d]/
 
   def initialize(csv: "db/contacts.csv")
     @contacts = Hash.new { nil }
 
-    `#{CONTACTS_CMD}`.each_line do |line|
-      name, *numbers = *line.split(":")
+    `#{CONTACTS_CMD}`.strip.split("\n\n").each do |contact|
+      contact = contact.split("\n")
+      contact = contact.map do |line|
+        _, k, v = */\A([^:]+): (.+)/.match(line)
+        [k, v]
+      end.to_h
 
-      next if name.strip.blank?
+      name = contact.slice(*%w[givenName familyName]).values.join(" ")
+      next if name&.strip.blank?
+
+      numbers =
+        begin
+          contact["phoneNumbers"].split(":").map do |n|
+            n.gsub(NON_DIGITS, "")
+          end.reject(&:blank?)
+        rescue
+          next
+        end
 
       numbers.each do |n|
         next if n.strip.blank?
