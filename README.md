@@ -24,7 +24,7 @@ You will also need a Redis server running for pub/sub for real-time chat updates
 
 Install like a normal Rails app, but don't create a database! Then run `rake messages:setup`, which will create a symlink in your public directory to your iMessage attachments directory so the GUI can display messages with images.
 
-To support desktop notifications, you'll need a self-signed SSL certificate in `config/ssl` (see `Procfile` for the expected locations). [Here's a good guide](https://rossta.net/blog/local-ssl-for-rails-5.html) to setting it up, which is a bit beyond the scope of this README. I may add some `rake` tasks at a future date to assist in the process. As ever, contributions are welcome.
+To support desktop notifications, you'll need a self-signed SSL certificate in `config/ssl` (see `Procfile` for the expected locations). [Here's a good guide](https://rossta.net/blog/local-ssl-for-rails-5.html) to setting it up, which is a bit beyond the scope of this README. I may add some `rake` tasks at a future date to assist in the process. As ever, contributions are welcome. *(Note: I had a very difficult time getting this working correctly in Chromium, but Firefox was much easier. YMMV. If you can live without desktop notifications for now, swap `Procfile` for `Procfile.nossl`.)*
 
 Issue `foreman start` to start up both the app server and the chat polling process.
 
@@ -39,6 +39,7 @@ There is basic theme support for those of us who like to rice our DEs, WMs, pets
 ## Important Caveats
 
 * uMessage does not yet have an authentication mechanism. This means that uMessage *must not* be deployed where it is accessible from the public internet, unless you configure some kind of authentication mechanism in front of it on your own. It is your responsibility to use this software securely.
+* Related to the above, if you do choose to set up remote access behind your own authentication layer, I must strenuously recommend that you have it working with a self-signed SSL certificate for end-to-end encryption.
 * In general, use at your own risk. It is a good idea to back up your `~/Library/Messages/chat.db*` files before running uMessage. It only reads from this database, but the nature of interfacing with closed softare such as `Messages.app` is that you never know how it might behave now or in the future. Again, it is your responsibility to take proper precautions and weigh the risks.
 
 ## TODO
