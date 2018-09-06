@@ -7,11 +7,7 @@
       <% end %>
     <% end %>
 
-    <% if message.text_for_chat.present? %>
-      <%= auto_link(simple_format(message.text_for_chat), html: { target: "_blank" }) %>
-    <% else %>
-      <p></p>
-    <% end %>
+    <%= auto_link(simple_format(message.text_for_chat), html: { target: "_blank" }) %>
   </td>
   <td class="sent-at">
     <small><%= datetime(DateTime.parse(message.sent_at)) %></small>

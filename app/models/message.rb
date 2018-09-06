@@ -101,7 +101,7 @@ class Message < ApplicationRecord
     if cache_has_attachments? || self[:text] == "￼"
       "[Attachment]"
     else
-      super&.strip
+      super&.strip || ""
     end
   end
 
