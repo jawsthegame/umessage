@@ -56,9 +56,10 @@ Contributions are welcome!
 - [x] Browser notifications
 - [ ] Attachments
   - [x] Render images in messages
-  - [ ] Upload form
+  - [x] Upload form
   - [ ] Drag-and-drop
   - [ ] Clipboard
+  - [ ] Link to attachments for full view in new tab
 - [ ] Paginate conversations
 - [ ] Authentication so it's safer to expose for remote access
 
