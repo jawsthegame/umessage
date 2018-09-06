@@ -8,6 +8,7 @@ gem "sqlite3"
 gem "redis"
 gem "jquery-rails"
 gem "bootstrap"
+gem "bootstrap_form", ">= 4.0.0.alpha1"
 
 group :development, :test do
   gem "byebug"

@@ -3,7 +3,7 @@
   <td>
     <% if message.cache_has_attachments? %>
       <% message.attachments.each do |a| %>
-        <%= attachment_image_tag a, style: "max-width: 90%" %>
+        <%= attachment_image_tag a, style: "max-width: 90%; max-height: 200px" %>
       <% end %>
     <% end %>
     <%= simple_format message.text&.strip %>

@@ -1,25 +1,41 @@
-<p id="notice"><%= notice %></p>
-
-<h1><%= name_from_number(@chat.identifiers) %></h1>
-
-<div id="chat" data-chat="<%= @chat.id %>">
-  <table class="chat-view">
-    <tbody>
-      <%= render @chat.messages.for_chat %>
-    </tbody>
-  </table>
-</div>
-
-<%= form_with(model:  [@chat, Message.new], local: false, id: "message-form") do |f| %>
-  <%= f.hidden_field :chat_id, value: @chat[:ROWID] %>
-  <%= f.hidden_field :conversation_id, value: @chat.guid %>
-  <%= f.text_area :text %>
-
-  <div class="actions">
-    <%= f.submit %>
+<div class="row no-gutters">
+  <div id="conversations" class="col-3">
+    <div class="scroll">
+      <div class="list-group">
+        <% Chat.all.find_each do |chat| %>
+          <%= link_to(chat, class: "list-group-item") do %>
+            <%= name_from_number(chat.identifiers) %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
 
-<br>
+  <div id="chat" class="col-9">
+    <h1><%= name_from_number(@chat.identifiers) %></h1>
 
-<%= link_to 'Back', chats_path %>
+    <div class="scroll">
+      <div data-chat="<%= @chat.id %>">
+        <table class="chat-view">
+          <tbody>
+            <%= render @chat.messages.for_chat %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <%= bootstrap_form_with(model: [@chat, Message.new], local: false, id: "message-form", class: "form-inline") do |f| %>
+      <div class="form-row">
+        <div class="col-10">
+          <%= f.hidden_field :chat_id, value: @chat[:ROWID] %>
+          <%= f.hidden_field :conversation_id, value: @chat.guid %>
+          <%= f.text_area :text, hide_label: true, class: "w-100" %>
+        </div>
+
+        <div class="col">
+          <%= f.submit "Send", class: "btn btn-primary w-100" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

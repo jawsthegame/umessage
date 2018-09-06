@@ -55,6 +55,8 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
+    bootstrap_form (4.0.0.alpha1)
+      rails (>= 5.0)
     builder (3.2.3)
     byebug (9.0.6)
     coderay (1.1.1)
@@ -186,6 +188,7 @@ DEPENDENCIES
   annotate
   awesome_print
   bootstrap
+  bootstrap_form (>= 4.0.0.alpha1)
   byebug
   factory_bot_rails
   jquery-rails

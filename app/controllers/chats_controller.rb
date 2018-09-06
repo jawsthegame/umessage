@@ -2,7 +2,8 @@ class ChatsController < ApplicationController
   before_action :set_chat, only: :show
 
   def index
-    @chats = Chat.all
+    @chat = Message.last.chats.first
+    render :show
   end
 
   def show
@@ -12,9 +13,5 @@ class ChatsController < ApplicationController
 
   def set_chat
     @chat = Chat.find(params[:id])
-  end
-
-  def chat_params
-    params.fetch(:chat, {})
   end
 end

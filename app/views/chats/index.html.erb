@@ -1,11 +1,13 @@
-<h1>Conversations</h1>
-
-<table id="conversations">
-  <tbody>
-    <% @chats.each do |chat| %>
-      <tr>
-        <td><%= link_to(name_from_number(chat.identifiers), chat) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div id="conversations" class="col-3">
+    <div class="scroll">
+      <div class="list-group">
+        <% @chats.each do |chat| %>
+          <%= link_to(chat, class: "list-group-item") do %>
+            <%= name_from_number(chat.identifiers) %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

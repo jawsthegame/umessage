@@ -10,8 +10,57 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require rails_bootstrap_forms
  *= require_self
- *= require_tree .
  */
 
 @import "bootstrap";
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col, > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+#bed {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#conversations {
+  .scroll {
+    max-height: 100vh;
+  }
+
+  .list-group-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+#chat {
+  h1 {
+    margin: 0;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+  }
+
+  #message-form {
+    padding: 8px;
+    border-top: 1px solid #eee;
+
+    .form-row {
+      width: 100%;
+    }
+  }
+}
