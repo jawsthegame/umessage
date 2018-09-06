@@ -57,7 +57,7 @@ Contributions are welcome!
 - [ ] Attachments
   - [x] Render images in messages
   - [x] Upload form
-  - [ ] Drag-and-drop
+  - [x] Drag-and-drop
   - [ ] Clipboard
   - [ ] Link to attachments for full view in new tab
 - [ ] Paginate conversations
