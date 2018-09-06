@@ -3,6 +3,12 @@ $(function() {
   scrollChatToBottom();
   sortConversations();
 
+  $("img").one("load", function() {
+    scrollChatToBottom();
+  }).each(function() {
+    if(this.complete) $(this).load();
+  });
+
   App.following = [];
 
   App.chats = App.cable.subscriptions.create("ChatsChannel", {

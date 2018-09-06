@@ -29,6 +29,8 @@ namespace :messages do
             last_message = new_messages.last.id
 
             new_messages.group_by { |m| m.chats.first }.each do |chat, messages|
+              next if chat.nil?
+
               chat_view =
                 messages.map do |message|
                   ApplicationController.render(message)
