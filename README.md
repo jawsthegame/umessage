@@ -24,6 +24,8 @@ You will also need a Redis server running for pub/sub for real-time chat updates
 
 Install like a normal Rails app, but don't create a database! Then run `rake messages:setup`, which will create a symlink in your public directory to your iMessage attachments directory so the GUI can display messages with images.
 
+Issue `foreman start` to start up both the app server and the chat polling process.
+
 ## TODO
 
 Contributions welcome!
