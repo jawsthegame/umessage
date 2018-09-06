@@ -3,12 +3,15 @@ source "https://rubygems.org"
 ruby "2.4.0"
 
 gem "rails"
+gem "foreman"
 gem "puma"
 gem "sqlite3"
 gem "redis"
+
 gem "jquery-rails"
 gem "bootstrap"
 gem "bootstrap_form", ">= 4.0.0.alpha1"
+gem "rails_autolink"
 
 group :development, :test do
   gem "byebug"
