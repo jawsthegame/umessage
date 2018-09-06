@@ -96,4 +96,8 @@ class Message < ApplicationRecord
       handle_identifier
     end
   end
+
+  def as_json(opts)
+    super(opts.merge(methods: :identifier))
+  end
 end

@@ -1,4 +1,6 @@
 $(function() {
+  Notification.requestPermission();
+
   adjustChatHeight();
   scrollChatToBottom();
   sortConversations();
@@ -6,10 +8,7 @@ $(function() {
   $("img").one("load", function() {
     scrollChatToBottom();
   }).each(function() {
-    try {
-      if(this.complete) $(this).load();
-    } catch {
-    }
+    try { if(this.complete) $(this).load(); } catch {}
   });
 
   App.chats = App.cable.subscriptions.create("ChatsChannel", {
@@ -19,6 +18,15 @@ $(function() {
       if (chat.length > 0) {
         chat.append(data.chat_view);
         scrollChatToBottom();
+      }
+
+      for (var i in data.messages) {
+        var message = data.messages[i];
+        if (message.is_from_me != 1) {
+          var notification = new Notification("uMessage", {
+            body: `${message.identifier}: ${message.text}`
+          });
+        }
       }
 
       $(`#conversations [data-chat=${data.chat_id}]`).remove();
