@@ -30,6 +30,8 @@ Issue `foreman start` to start up both the app server and the chat polling proce
 
 You can set your preferred time zone in `config/application.rb`. Use `rake time:zones:all` for a full list of valid time zone strings.
 
+There is basic theme support for those of us who like to rice our DEs, WMs, pets, and loved ones. The default theme is Solarized Dark. Check `app/assets/stylesheets/themes/solarized-dark.sass` to see how it's implemented, and to use as a starting place for new themes (it doesn't have to be SASS; CSS and SCSS will also work). Themes are set by a string in `config/application.rb` which is added as a class to the container element in the page layout. All themes are loaded, but should be scoped to that element. Again, see the included theme for more info. To see the unthemed appearance, just change the config string to "unthemed" (or any non-existent theme).
+
 ## TODO
 
 Contributions welcome!
@@ -44,10 +46,10 @@ Contributions welcome!
 - [x] Submit messages with Ajax
 - [x] Real-time message updates
 - [ ] Browser notifications
-- [ ] Proper UI (properly-sorted conversations in sidebar)
+- [x] Proper UI (properly-sorted conversations in sidebar)
 - [ ] Copious hotkeys
-- [ ] Add theme as a configuration option
-- [ ] Implement a Solarized-based theme
+- [x] Add theme as a configuration option
+- [x] Implement a Solarized-based theme
 
 # Original README:
 
