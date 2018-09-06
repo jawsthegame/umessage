@@ -6,28 +6,20 @@ $(function() {
   $("img").one("load", function() {
     scrollChatToBottom();
   }).each(function() {
-    if(this.complete) $(this).load();
+    try {
+      if(this.complete) $(this).load();
+    } catch {
+    }
   });
 
-  App.following = [];
-
   App.chats = App.cable.subscriptions.create("ChatsChannel", {
-    connected: function() {
-      $("[data-chat]").each(function(_, el) {
-        this.follow($(el).data("chat"));
-      }.bind(this));
-    },
-
-    follow: function(id) {
-      if (App.following.indexOf(id) == -1) {
-        this.perform("follow", { id: id });
-        App.following.push(id);
-      }
-    },
-
     received: function(data) {
-      $(`#chat [data-chat=${data.chat_id}]`).append(data.chat_view);
-      scrollChatToBottom();
+      var chat = $(`#chat [data-chat=${data.chat_id}]`)
+
+      if (chat.length > 0) {
+        chat.append(data.chat_view);
+        scrollChatToBottom();
+      }
 
       $(`#conversations [data-chat=${data.chat_id}]`).remove();
       $("#conversations .list-group").append(data.conversation_view);
@@ -36,7 +28,7 @@ $(function() {
   });
 
   document.body.addEventListener("ajax:success", function(ev) {
-    $(ev.srcElement).find("textarea").val("");
+    $("#message-form textarea").val("");
   });
 });
 

@@ -50,8 +50,8 @@ namespace :messages do
                 locals: { chat: chat },
               )
 
-              ChatsChannel.broadcast_to(
-                chat,
+              ActionCable.server.broadcast(
+                ChatsChannel::STREAM,
                 chat_id: chat.id,
                 messages: messages,
                 chat_view: chat_view,

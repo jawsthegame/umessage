@@ -1,5 +1,7 @@
 class ChatsChannel < ApplicationCable::Channel
-  def follow(data)
-    stream_for Chat.find(data["id"])
+  STREAM = "chat-updates"
+
+  def subscribed
+    stream_from STREAM
   end
 end
