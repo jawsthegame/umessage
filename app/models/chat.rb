@@ -71,7 +71,13 @@ class Chat < ApplicationRecord
   end
 
   def identifiers
-    handles.map(&:chat_identifier)
+    handles.map do |handle|
+      if name = ChatsHelper::CONTACTS.by_phone(handle.chat_identifier)
+        name
+      else
+        handle.chat_identifier
+      end
+    end.join(", ")
   end
 
   def unread_count

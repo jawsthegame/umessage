@@ -90,6 +90,8 @@ class Message < ApplicationRecord
   def identifier
     if is_from_me?
       "Me"
+    elsif name = ChatsHelper::CONTACTS.by_phone(handle_identifier)
+      name
     else
       handle_identifier
     end
