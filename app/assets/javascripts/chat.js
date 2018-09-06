@@ -37,6 +37,7 @@ $(function() {
 
   document.body.addEventListener("ajax:success", function(ev) {
     $("#message-form textarea").val("");
+    $("#message-form .custom-file-input").val("");
   });
 });
 
