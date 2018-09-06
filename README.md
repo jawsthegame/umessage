@@ -26,6 +26,8 @@ Install like a normal Rails app, but don't create a database! Then run `rake mes
 
 Issue `foreman start` to start up both the app server and the chat polling process.
 
+Your uMessage app will now be accessible from `http://<your-mac-ip>:3000/chats`.
+
 ## Configuration
 
 You can set your preferred time zone in `config/application.rb`. Use `rake time:zones:all` for a full list of valid time zone strings.
