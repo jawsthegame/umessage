@@ -64,7 +64,7 @@ $green:   #859900
       td.sender
         color: $green
 
-    .custom-file
+    #message-form
       .custom-file-label
         background: $base02
         color: $base00
@@ -73,6 +73,15 @@ $green:   #859900
           background: $magenta
           color: white
           border-color: $base00
+
+      &.is-dragover
+        background: $base02
+
+      &.has-file
+        .custom-file-label
+          background: $violet
+          color: white
+
 
 ::-webkit-scrollbar
   background: $base02

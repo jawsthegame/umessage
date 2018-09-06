@@ -2,14 +2,25 @@ $(function() {
   Notification.requestPermission();
 
   adjustChatHeight();
+  imageScrollEvents();
   scrollChatToBottom();
   sortConversations();
 
-  $("img").one("load", function() {
-    scrollChatToBottom();
-  }).each(function() {
-    try { if(this.complete) $(this).load(); } catch {}
-  });
+  var droppedFiles = false;
+
+  var form = $("#message-form")
+
+  form.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  })
+    .on("dragover dragenter", function() { form.addClass('is-dragover'); })
+    .on("dragleave dragend drop", function() { form.removeClass('is-dragover'); })
+    .on("drop", function(e) {
+      e.preventDefault();
+      form.addClass("has-file");
+      form.find("input[type='file']")[0].files = e.originalEvent.dataTransfer.files;
+    });
 
   App.chats = App.cable.subscriptions.create("ChatsChannel", {
     received: function(data) {
@@ -17,6 +28,7 @@ $(function() {
 
       if (chat.length > 0) {
         chat.append(data.chat_view);
+        imageScrollEvents();
         scrollChatToBottom();
       }
 
@@ -38,6 +50,7 @@ $(function() {
   document.body.addEventListener("ajax:success", function(ev) {
     $("#message-form textarea").val("");
     $("#message-form .custom-file-input").val("");
+    $("#message-form").removeClass("has-file");
   });
 });
 
@@ -55,6 +68,14 @@ function adjustChatHeight() {
       parseInt(message_form.css("height"))
     )
   )
+}
+
+function imageScrollEvents() {
+  $("img").one("load", function() {
+    scrollChatToBottom();
+  }).each(function() {
+    try { if(this.complete) $(this).load(); } catch {}
+  });
 }
 
 function scrollChatToBottom() {
