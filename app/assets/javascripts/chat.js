@@ -59,6 +59,9 @@ function sortConversations() {
   $("#conversations .list-group .list-group-item").sort(function(a, b) {
     return parseInt($(a).data("date")) > parseInt($(b).data("date")) ? -1 : 1;
   }).appendTo("#conversations .list-group");
+
+  chat_id = $("#chat [data-chat]").data("chat");
+  $(`#conversations [data-chat=${chat_id}]`).addClass("active");
 }
 
 $("body").on("resize", adjustChatHeight);
