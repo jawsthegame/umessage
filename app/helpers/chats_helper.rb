@@ -6,7 +6,8 @@ module ChatsHelper
 
     if path
       path = "/images/message_attachments/#{path}"
-      image_tag(asset_path(path, skip_pipeline: true), **opts)
+      path = asset_path(path, skip_pipeline: true)
+      link_to(image_tag(path, **opts), path, target: "_blank")
     end
   end
 

@@ -54,12 +54,12 @@ Contributions are welcome!
 - [x] Add theme as a configuration option
 - [x] Implement a Solarized-based theme
 - [x] Browser notifications
-- [ ] Attachments
+- [x] Attachments
   - [x] Render images in messages
   - [x] Upload form
   - [x] Drag-and-drop
   - [x] Clipboard
-  - [ ] Link to attachments for full view in new tab
+  - [x] Link to attachments for full view in new tab
 - [ ] Paginate conversations
 - [ ] Authentication so it's safer to expose for remote access
 
