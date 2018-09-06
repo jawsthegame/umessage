@@ -28,7 +28,7 @@ To support desktop notifications, you'll need a self-signed SSL certificate in `
 
 Issue `foreman start` to start up both the app server and the chat polling process.
 
-Your uMessage app will now be accessible from `http://<your-mac-ip>:3000/chats`.
+Your uMessage app will now be accessible from `http://<your-mac-ip>:3000/chats`. If you have trouble loading it, check your Mac and make sure you allow requested permissions (accessbility and address book access).
 
 ## Configuration
 
