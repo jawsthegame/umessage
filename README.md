@@ -24,6 +24,8 @@ You will also need a Redis server running for pub/sub for real-time chat updates
 
 Install like a normal Rails app, but don't create a database! Then run `rake messages:setup`, which will create a symlink in your public directory to your iMessage attachments directory so the GUI can display messages with images.
 
+To support desktop notifications, you'll need a self-signed SSL certificate in `config/ssl` (see `Procfile` for the expected locations). [Here's a good guide](https://rossta.net/blog/local-ssl-for-rails-5.html) to setting it up, which is a bit beyond the scope of this README. I may add some `rake` tasks at a future date to assist in the process. As ever, contributions are welcome.
+
 Issue `foreman start` to start up both the app server and the chat polling process.
 
 Your uMessage app will now be accessible from `http://<your-mac-ip>:3000/chats`.
@@ -50,12 +52,12 @@ Contributions are welcome!
 - [x] Proper UI (properly-sorted conversations in sidebar)
 - [x] Add theme as a configuration option
 - [x] Implement a Solarized-based theme
+- [x] Browser notifications
 - [ ] Attachments
   - [x] Render images in messages
   - [ ] Upload form
   - [ ] Drag-and-drop
   - [ ] Clipboard
-- [ ] Browser notifications
 - [ ] Paginate conversations
 - [ ] Authentication so it's safer to expose for remote access
 
