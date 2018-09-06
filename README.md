@@ -1,18 +1,18 @@
-# About this fork
+# uMessage
 
-I recently switched to Linux as my daily workstation. The only thing I truly, persistently missed was the ability to respond to SMS and iMessage conversations from the comfort of my workstation.
+iMessage access away from your Apple devices, for those conversations that are too important to miss.
 
-After a lot of research and mucking around, I decided I would write a Rails app that would run on my old Mac and give me a simple web interface into the Messages app. I was going to do it from scratch until I found `coisnepe`'s project, and that really got the ball rolling.
+![Screenshot](https://raw.githubusercontent.com/cvincent/imessage_on_rails/master/app/assets/images/screenshot.png)
 
-Some notes about setup and some TODOs:
+When I switched to Linux, the only thing I truly, persistently missed was the ability to respond to SMS and iMessage conversations from the comfort of my workstation. After a lot of research and mucking around, I decided I would write a Rails app that would run on my old Mac and give me a simple web interface into the Messages app.
 
-* Both individual and group chats are working!
-* Attachments are not supported yet. This is something I plan to add, including drag-and-drop as well as clipboard support.
-* The app doesn't yet generate browser notifications or update in real-time. This is also something I intend to add.
-* The UI is extremely minimal. I'll be working on this some, but ultimately I'd like to theme it like the rest of my desktop environment (Solarized, basically). Theming support as an actual feature would be cool, but probably outside my own scope here. Feel free to fork it and make it your own.
-* I am interested in adapting this further as a bridge that can work with some other chat protocol so it's accessible without a browser. I haven't looked too deeply into this yet, but it is something I want to do. At the very least, adding a JSON API would open up all kinds of possibilities.
-* It doesn't currently support starting new conversations. This isn't something I do that often at all outside using my phone, but if I find myself wanting it enough maybe I'll add it.
-* I'm using this in macOS High Sierra (10.13.6, specifically), and I plan to stick with that. From my research, it looks like Apple frequently changes the iMessage database format and interfaces, seemingly (at least sometimes) deliberately to foil attempts at doing exactly what I'm trying to do here. So I suppose my old Mac will run High Sierra either forever or until Apple opens up the iMessage platform, whichever comes first.
+uMessage is the result of this (ongoing) effort.
+
+## The Bullet Points
+
+* uMessage is a Rails app that runs on your Mac. You must have a Mac with an iCloud account that is able to use `Messages.app` for uMessage to be of any use.
+* You can view and reply to existing one-to-one and group conversations.
+* uMessage has been tested only on macOS High Sierra (10.13.6, specifically), and I plan to stick with that, as it is impossible to know what updates may break compatibility with uMessage. Reports of issues on other versions of macOS are welcome, but not as welcome as patches that fix such issues. I don't tend to upgrade to major macOS releases until long after they've shipped.
 
 ## Dependencies
 
@@ -32,49 +32,27 @@ You can set your preferred time zone in `config/application.rb`. Use `rake time:
 
 There is basic theme support for those of us who like to rice our DEs, WMs, pets, and loved ones. The default theme is Solarized Dark. Check `app/assets/stylesheets/themes/solarized-dark.sass` to see how it's implemented, and to use as a starting place for new themes (it doesn't have to be SASS; CSS and SCSS will also work). Themes are set by a string in `config/application.rb` which is added as a class to the container element in the page layout. All themes are loaded, but should be scoped to that element. Again, see the included theme for more info. To see the unthemed appearance, just change the config string to "unthemed" (or any non-existent theme).
 
+## Important Caveats
+
+* uMessage does not yet have an authentication mechanism. This means that uMessage *must not* be deployed where it is accessible from the public internet, unless you configure some kind of authentication mechanism in front of it on your own. It is your responsibility to use this software securely.
+* In general, use at your own risk. It is a good idea to back up your `~/Library/Messages/chat.db*` files before running uMessage. It only reads from this database, but the nature of interfacing with closed softare such as `Messages.app` is that you never know how it might behave now or in the future. Again, it is your responsibility to take proper precautions and weigh the risks.
+
 ## TODO
 
-Contributions welcome!
+Contributions are welcome!
 
 - [x] Better support for Address Book name replacement
 - [x] Improve name replacement further; right now not all "phone" fields are recognized
+- [x] Submit messages with Ajax
+- [x] Real-time message updates
+- [x] Proper UI (properly-sorted conversations in sidebar)
+- [x] Add theme as a configuration option
+- [x] Implement a Solarized-based theme
 - [ ] Attachments
   - [x] Render images in messages
   - [ ] Upload form
   - [ ] Drag-and-drop
   - [ ] Clipboard
-- [x] Submit messages with Ajax
-- [x] Real-time message updates
 - [ ] Browser notifications
-- [x] Proper UI (properly-sorted conversations in sidebar)
 - [ ] Copious hotkeys
-- [x] Add theme as a configuration option
-- [x] Implement a Solarized-based theme
-
-# Original README:
-
-##imessage_on_rails
-
-A super simple Rails app to play with OSX's Messages database
-
-To get your database (better not work with the actual imessage db!), run:
-
-```
-$ cp ~/Library/Messages/chat.db path/to/imessage_on_rails/db/chat.sqlite3
-```
-
-This shouldn't take more than a few seconds...
-
-Right now I'm basically only using ActiveRecord, so `rails c` will get you going.
-
-The models are as follows:
-- Chat: a conversation
-- Message
-- Attachment
-- Handle: a person
-
-The joins are functional, giving you queries such as `Chat.where(chat_identifier: "johndoe@icloud.com").message`
-
-To compensate for the lack of GUI, unleash the power of _awsome_print_ and make the query results easier on the eyes by prefixing your commands with `ap`
-
-A graphical interface would be neat, so feel free to fork and submit pull requests.
+- [ ] Authentication so it's safer to expose for remote access
