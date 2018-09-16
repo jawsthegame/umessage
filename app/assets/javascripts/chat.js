@@ -82,7 +82,7 @@ function imageScrollEvents() {
   $("img").one("load", function() {
     scrollChatToBottom();
   }).each(function() {
-    try { if(this.complete) $(this).load(); } catch {}
+    try { if(this.complete) $(this).load(); } catch(e) {}
   });
 }
 
