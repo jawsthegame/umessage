@@ -22,13 +22,40 @@ You will also need a Redis server running for pub/sub for real-time chat updates
 
 ## Installation
 
+### Attachments and Contacts
+
 Install like a normal Rails app, but don't create a database! Then run `rake messages:setup`, which will create a symlink in your public directory to your iMessage attachments directory so the GUI can display messages with images.
+
+It will also use `Contactor` to generate a list of your contacts in `db/contacts.txt`.
+
+This is a bit of a hack, because running this as a `launchd` daemon makes use of the `Contactor` script...untenable, as far as I can tell. Contributions are more than welcome.
+
+In the meantime, it is perfectly safe to re-run `rake messages:setup` to resync the contacts list as needed.
+
+### Desktop Notifications
 
 To support desktop notifications, you'll need a self-signed SSL certificate in `config/ssl` (see `Procfile` for the expected locations). [Here's a good guide](https://rossta.net/blog/local-ssl-for-rails-5.html) to setting it up, which is a bit beyond the scope of this README. I may add some `rake` tasks at a future date to assist in the process. As ever, contributions are welcome. *(Note: I had a very difficult time getting this working correctly in Chromium, but Firefox was much easier. YMMV. If you can live without desktop notifications for now, swap `Procfile` for `Procfile.nossl`.)*
 
+### Run it
+
 Issue `foreman start` to start up both the app server and the chat polling process.
 
-Your uMessage app will now be accessible from `http://<your-mac-ip>:3000/chats`. If you have trouble loading it, check your Mac and make sure you allow requested permissions (accessbility and address book access).
+Your uMessage app will now be accessible from `http(s)://<your-mac-ip-or-hostname>:3000/chats`. If you have trouble loading it, check your Mac and make sure you allow requested permissions (accessbility and address book access).
+
+### Running it as a Daemon
+
+You can use `foreman export launchd /Library/LaunchDaemon` to generate `launchd` configs so uMessage's web server and poll process are started as daemons at startup. There may be issues with this if you use `rbenv` or similar, requiring you to make edits to the generated files. For example, my `ProgramArguments` section was changed to look like:
+
+```
+  <key>ProgramArguments</key>
+  <array>
+      <string>bash</string>
+      <string>-lc</string>
+      <string>rails s -b 'ssl://0.0.0.0:3000?key=config/ssl/umessage.local.key&cert=config/ssl/umessage.local.crt'</string>
+  </array>
+```
+
+YMMV and I encourage any contributions on documentation here.
 
 ## Configuration
 
