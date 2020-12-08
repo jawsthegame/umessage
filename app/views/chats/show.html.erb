@@ -13,7 +13,7 @@
     <div class="scroll">
       <table data-chat="<%= @chat.id %>" class="chat-view">
         <tbody>
-          <%= render @chat.messages.for_chat %>
+          <%= render @chat.messages.for_chat.last(50) %>
         </tbody>
       </table>
     </div>
